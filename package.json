@@ -1,0 +1,20 @@
+{
+  "name": "hash-map",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Create hash map from user provided strings.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jmchek/hash-map.git"
+  },
+  "author": "Joe Chek",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jmchek/hash-map/issues"
+  },
+  "homepage": "https://github.com/Jmchek/hash-map#readme"
+}
