@@ -1,5 +1,9 @@
+import LinkedList from "./LinkedList.js";
+import Node from "./Node.js";
+
 export default function HashMap() {
-  let buckets = [[], [], []];
+  let buckets = new Array(16).fill([]);
+console.log(buckets);
   let entryCount = 0;
 
   function bucket(key) {    

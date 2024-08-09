@@ -17,5 +17,3 @@ test.set('kite', 'pink')
 test.set('lion', 'golden')
 
 console.log(test.buckets);
-test.clear();
-console.log(test.buckets);
