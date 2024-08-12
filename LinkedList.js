@@ -87,7 +87,20 @@ const LinkedList = () => {
         let current = HEAD;
 
         while(current){
-            if (current.value == value){
+            if (JSON.stringify(current.value) == JSON.stringify(value)){
+                return true;
+            }
+            current = current.next;
+        }
+
+        return false;
+    }
+
+    const containsKey = (key) => {
+        let current = HEAD;
+
+        while(current){
+            if (JSON.stringify(current.value.key) == JSON.stringify(key)){
                 return true;
             }
             current = current.next;
@@ -101,7 +114,23 @@ const LinkedList = () => {
         let current = HEAD;
 
         while (current){
-            if(current.value == value){
+            if(JSON.stringify(current.value) == JSON.stringify(value)){
+                return count;
+            }
+
+            count++;
+            current = current.next;
+        }
+
+        return null;
+    }
+
+    const findKeyIndex = (key) => {
+        let count = 0;
+        let current = HEAD;
+
+        while (current){
+            if(JSON.stringify(current.value.key) == JSON.stringify(key)){
                 return count;
             }
 
@@ -159,30 +188,19 @@ const LinkedList = () => {
     }
 
     const removeAt = (index) => {
-        let count = 0;
-        let current = HEAD;
+        if (HEAD == null) return "List is already empty";
 
-        if(HEAD === null || index >= length || index < 0){
-            return console.log("No values to remove.");
+        let cur = HEAD;
+        let prev = null;
+        for (let i = 0; i <= index; i++) {
+        prev = cur;
+        cur = cur.next;
+        if (cur == null) return "There is no item for this index";
+        }
+            prev.next = cur.next;
         }
 
-        length--;
-
-        while (count < (index - 1)){
-            count++;
-            current = current.next;
-            
-        }
-        if(current.next.next !== null && index != 0){
-            current.next = current.next.next;
-        } else if (index == 0){
-            HEAD = HEAD.next;
-        } else {
-            current.next = null;
-        }
-    }
-
-    return { append, prepend, size, head, tail, at, pop, contains, find, toString, insertAt, removeAt };
+    return { append, prepend, size, head, tail, at, pop, contains, find, toString, insertAt, removeAt, containsKey, findKeyIndex };
 }
 
 export default LinkedList;
