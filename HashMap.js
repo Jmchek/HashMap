@@ -1,7 +1,11 @@
 import LinkedList from "./LinkedList.js";
 
 export default function HashMap() {
-  let buckets = new Array(16).fill(LinkedList());
+  let buckets = new Array(16);
+  for (let i = 0; i < buckets.length; i++){
+    buckets[i] = LinkedList();
+  }
+
   let entryCount = 0;
 
   function hash(key) {
@@ -76,10 +80,28 @@ export default function HashMap() {
   }
 
   function clear() {
-    for (let i of buckets){
-      i.splice(0, i.length);
+    for (let i = 0; i < buckets.length; i++){
+      buckets[i] = LinkedList();
     }
+    entryCount = 0;
+  }
+
+  //working here
+  function keys() {
+    let keyArr = [];
+    for (let i = 0; i < buckets.length; i++){
+      if(buckets[i].head() !== null){
+        let current = buckets[i].head();
+
+        while (current){
+            keyArr.push(JSON.stringify(current.key));
+            current = current.next;
+        }
+      }
+    }
+
+    return keyArr;
   }
     
-  return {buckets, hash, has, bucket, set, get, entry, remove, length, clear};
+  return {buckets, hash, has, bucket, set, get, entry, remove, length, clear, keys};
 }
