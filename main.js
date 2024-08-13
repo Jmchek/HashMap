@@ -4,7 +4,8 @@ import HashMap from "./HashMap.js";
 const test = HashMap();
 
 test.set('apple', 'red');
-test.set('apple', 'blue');
+console.log(test.remove('banana'));
+// test.set('apple', 'blue');
 // test.set('banana', 'yellow')
 // test.set('carrot', 'orange')
 // test.set('dog', 'brown')
@@ -18,3 +19,7 @@ test.set('apple', 'blue');
 // test.set('lion', 'golden')
 
 // console.log(test.buckets);
+
+console.log(test.has('apple'));
+console.log(test.remove('apple'));
+console.log(test.has('apple'));

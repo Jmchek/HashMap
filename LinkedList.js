@@ -72,15 +72,13 @@ const LinkedList = () => {
     }
 
     const pop = () => {
-        let current = HEAD;
-
-        while (current.next.next !== null){
-            current = current.next;
-            if (current.next.next === null){
-                current.next = null;
-                return;
-            }
+        let cur = HEAD;
+        let prev = null;
+        while (cur.next != null) {
+        prev = cur;
+        cur = cur.next;
         }
+        prev.next = null;
     }
 
     const contains = (value) => {
@@ -146,7 +144,7 @@ const LinkedList = () => {
         let stringedList = "";
 
         while (current){
-            stringedList += "( " + current.value + " )";
+            stringedList += "( " + JSON.stringify(current.value) + " )";
             if(current.next !== null){
                 stringedList += " -> ";
             }
@@ -188,17 +186,15 @@ const LinkedList = () => {
     }
 
     const removeAt = (index) => {
-        if (HEAD == null) return "List is already empty";
-
-        let cur = HEAD;
-        let prev = null;
-        for (let i = 0; i <= index; i++) {
-        prev = cur;
-        cur = cur.next;
-        if (cur == null) return "There is no item for this index";
+        if (!HEAD) return null;
+        if (index > length || index < 0) return;
+        if (index === 0) HEAD = HEAD.next;
+        else {
+        const prePointer = at(index - 1);
+        prePointer.next = prePointer.next.next;
         }
-            prev.next = cur.next;
-        }
+        length--;
+    }
 
     return { append, prepend, size, head, tail, at, pop, contains, find, toString, insertAt, removeAt, containsKey, findKeyIndex };
 }

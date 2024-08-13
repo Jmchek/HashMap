@@ -4,9 +4,6 @@ export default function HashMap() {
   let buckets = new Array(16).fill(LinkedList());
   let entryCount = 0;
 
-  // buckets[1].append({key: 'apple', value: 'red'});
-  // console.log(buckets[1].find({key: 'apple', value: 'red'}));
-
   function hash(key) {
     let hashCode = 0;
         
@@ -24,15 +21,7 @@ export default function HashMap() {
   }
 
   function entry(bucket, key) {
-    // for (let e of bucket) {
-    //   if (e.contains(key)) {
-    //     return e;
-    //   }
-    // }
-    // let searchQuery = {key, value};
-    // console.log(searchQuery);
     if (bucket.containsKey(key)) {
-      console.log(bucket.findKeyIndex(key))
           return bucket.findKeyIndex(key);
         } else {
           return null;
@@ -40,26 +29,23 @@ export default function HashMap() {
   }
 
   function set(key, value) {
-    entryCount++;
     let b = bucket(key);
     let e = entry(b, key);
-    console.log("this is e before = " + e);
+    let data = {key, value};
     if (e !== null) {
-      console.log("worked? here's e " + e);
       b.removeAt(e);
-      b.insertAt(value, e);
-      console.log("head = " + b.head());
+      b.insertAt(data, e);
       return;
     }
-    b.append({ key, value });
-    console.log("head = " + b.head());
+    b.append(data);
+    entryCount++;
   }
 
   function get(key) {
     let b = bucket(key);
     let e = entry(b, key);
-    if (e) {
-      return e.value;
+    if (e !== null) {
+      return b.at(e).value;
     }
     return null;
   }
@@ -67,7 +53,8 @@ export default function HashMap() {
   function has(key) {
     let b = bucket(key);
     let e = entry(b, key);
-    if (e){
+
+    if (e >= 0 && e !== null){
       return true;
     }
 
@@ -77,13 +64,9 @@ export default function HashMap() {
   function remove(key) {
     let b = bucket(key);
     let e = entry(b, key);
-    if(e){
-      for (let i of b) {
-        if (i.key === key) {
-          b.splice(b.indexOf(i), 1);
-          return true;
-        }
-      }
+    if (e !== null){
+      b.removeAt(e);
+      return true;
     }
     return false;
   }
