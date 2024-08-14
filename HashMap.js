@@ -1,12 +1,14 @@
 import LinkedList from "./LinkedList.js";
 
 export default function HashMap() {
+  const LOAD_FACTOR = 0.75;
   let buckets = new Array(16);
+  let capacity = buckets.length;
+  let entryCount = 0;
+
   for (let i = 0; i < buckets.length; i++){
     buckets[i] = LinkedList();
   }
-
-  let entryCount = 0;
 
   function hash(key) {
     let hashCode = 0;
@@ -21,7 +23,13 @@ export default function HashMap() {
 
   function bucket(key) {    
     let h = hash(key);
-    return buckets[h % buckets.length];
+    let index = h % buckets.length;
+
+    if (index < 0 || index >= buckets.length) {
+      throw new Error("Trying to access index out of bound");
+    } else {
+      return buckets[index];
+    }
   }
 
   function entry(bucket, key) {
@@ -36,6 +44,18 @@ export default function HashMap() {
     let b = bucket(key);
     let e = entry(b, key);
     let data = {key, value};
+
+    //grow bucket
+    if (entryCount >= capacity * LOAD_FACTOR){
+      buckets.length += 8;
+      capacity += 8;
+      for (let i = capacity - 8; i < buckets.length; i++){
+        if(buckets[i] === undefined){
+          buckets[i] = LinkedList();
+        }
+      }
+    }
+
     if (e !== null) {
       b.removeAt(e);
       b.insertAt(data, e);
@@ -86,7 +106,6 @@ export default function HashMap() {
     entryCount = 0;
   }
 
-  //working here
   function keys() {
     let keyArr = [];
     for (let i = 0; i < buckets.length; i++){
@@ -102,6 +121,39 @@ export default function HashMap() {
 
     return keyArr;
   }
+
+  function values() {
+    let valuesArr = [];
+    for (let i = 0; i < buckets.length; i++){
+      if(buckets[i].head() !== null){
+        let current = buckets[i].head();
+
+        while (current){
+            valuesArr.push(JSON.stringify(current.value));
+            current = current.next;
+        }
+      }
+    }
+
+    return valuesArr;
+  }
+
+  function entries() {
+    console.log(buckets.length);
+    let entryArr = [];
+    for (let i = 0; i < buckets.length; i++){
+      if(buckets[i].head() !== null){
+        let current = buckets[i].head();
+
+        while (current){
+            entryArr.push(JSON.stringify([current.key, current.value]));
+            current = current.next;
+        }
+      }
+    }
+
+    return entryArr;
+  }
     
-  return {buckets, hash, has, bucket, set, get, entry, remove, length, clear, keys};
+  return {has, set, get, remove, length, clear, keys, values, entries};
 }
