@@ -1,7 +1,9 @@
 import HashMap from "./HashMap.js";
+import HashSet from "./HashSet.js";
 
 
 const test = HashMap();
+const test2 = HashSet();
 
 test.set('apple', 'red');
 test.set('banana', 'yellow')
@@ -15,19 +17,31 @@ test.set('ice cream', 'white')
 test.set('jacket', 'blue')
 test.set('kite', 'pink')
 test.set('lion', 'golden')
-
 test.set('moon', 'silver')
 test.set('sasd', 'silver')
 
-// console.log(test.buckets);
-// test.clear();
-// console.log(test.has('apple'));
-// console.log(test.values())
-
 test.set('moon', 'blarple')
 
-// console.log(test.values())
+test2.set('moon');
+test2.set('cheese');
+test2.set('sauce');
+test2.set('beer');
+test2.set('sandwhich');
+test2.set('car');
+test2.set('ball');
+test2.set('earth');
+test2.set('rings');
 
-// console.log(test.length())
+console.log(test2.keys());
+console.log(test2.length());
 
-// console.log(test.toString())
+test2.set('ball');
+
+console.log(test2.keys());
+console.log(test2.length());
+console.log(test2.get('ball'));
+console.log(test2.has('ball'));
+test2.remove('ball');
+console.log(test2.keys());
+
+console.log(test2.entries());

@@ -1,6 +1,6 @@
 import LinkedList from "./LinkedList.js";
 
-export default function HashMap() {
+export default function HashSet() {
   const LOAD_FACTOR = 0.75;
   let buckets = new Array(16);
   let capacity = buckets.length;
@@ -46,10 +46,10 @@ export default function HashMap() {
         }
   }
 
-  function set(key, value) {
+  function set(key) {
     let b = bucket(key);
     let e = entry(b, key);
-    let data = {key, value};
+    let data = {key};
 
     //grow bucket
     if (entryCount >= capacity * LOAD_FACTOR){
@@ -130,22 +130,6 @@ export default function HashMap() {
     return keyArr;
   }
 
-  function values() {
-    let valuesArr = [];
-    for (let i = 0; i < buckets.length; i++){
-      if(buckets[i].headPointer() !== null){
-        let current = buckets[i].headPointer();
-
-        while (current !== null){
-            valuesArr.push(JSON.stringify(current.value.value));
-            current = current.next;
-        }
-      }
-    }
-
-    return valuesArr;
-  }
-
   function entries() {
     let entryArr = [];
     for (let i = 0; i < buckets.length; i++){
@@ -153,7 +137,7 @@ export default function HashMap() {
         let current = buckets[i].headPointer();
 
         while (current !== null){
-            entryArr.push(JSON.stringify([current.value.key, current.value.value]));
+            entryArr.push(JSON.stringify([current.value.key]));
             current = current.next;
         }
       }
@@ -162,5 +146,5 @@ export default function HashMap() {
     return entryArr;
   }
     
-  return {has, set, get, remove, length, clear, keys, values, entries};
+  return {has, set, get, remove, length, clear, keys, entries};
 }

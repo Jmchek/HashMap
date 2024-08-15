@@ -73,7 +73,7 @@ const LinkedList = () => {
             current = current.next;
         }
 
-        return current.value;
+        return current;
     }
 
     const pop = () => {
