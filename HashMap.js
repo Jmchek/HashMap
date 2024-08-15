@@ -40,6 +40,7 @@ export default function HashMap() {
         }
   }
 
+  //fixing set
   function set(key, value) {
     let b = bucket(key);
     let e = entry(b, key);
@@ -109,11 +110,11 @@ export default function HashMap() {
   function keys() {
     let keyArr = [];
     for (let i = 0; i < buckets.length; i++){
-      if(buckets[i].head() !== null){
-        let current = buckets[i].head();
+      if(buckets[i].headPointer() !== null){
+        let current = buckets[i].headPointer();
 
-        while (current){
-            keyArr.push(JSON.stringify(current.key));
+        while (current !== null){
+            keyArr.push(JSON.stringify(current.value.key));
             current = current.next;
         }
       }
@@ -125,11 +126,11 @@ export default function HashMap() {
   function values() {
     let valuesArr = [];
     for (let i = 0; i < buckets.length; i++){
-      if(buckets[i].head() !== null){
-        let current = buckets[i].head();
+      if(buckets[i].headPointer() !== null){
+        let current = buckets[i].headPointer();
 
-        while (current){
-            valuesArr.push(JSON.stringify(current.value));
+        while (current !== null){
+            valuesArr.push(JSON.stringify(current.value.value));
             current = current.next;
         }
       }
@@ -139,14 +140,13 @@ export default function HashMap() {
   }
 
   function entries() {
-    console.log(buckets.length);
     let entryArr = [];
     for (let i = 0; i < buckets.length; i++){
-      if(buckets[i].head() !== null){
-        let current = buckets[i].head();
+      if(buckets[i].headPointer() !== null){
+        let current = buckets[i].headPointer();
 
-        while (current){
-            entryArr.push(JSON.stringify([current.key, current.value]));
+        while (current !== null){
+            entryArr.push(JSON.stringify([current.value.key, current.value.value]));
             current = current.next;
         }
       }

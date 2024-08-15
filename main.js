@@ -22,7 +22,11 @@ test.set('sasd', 'silver')
 // console.log(test.buckets);
 // test.clear();
 // console.log(test.has('apple'));
-console.log(test.entries())
+// console.log(test.values())
+
+test.set('moon', 'blarple')
+
+// console.log(test.values())
 
 // console.log(test.length())
 

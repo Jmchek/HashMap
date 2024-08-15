@@ -46,6 +46,11 @@ const LinkedList = () => {
         return HEAD.value;
     };
 
+    const headPointer = () => {
+        if (!HEAD) return null;
+        return HEAD;
+    }
+
     const tail = () => {
         if (!HEAD) return null;
 
@@ -196,7 +201,7 @@ const LinkedList = () => {
         length--;
     }
 
-    return { append, prepend, size, head, tail, at, pop, contains, find, toString, insertAt, removeAt, containsKey, findKeyIndex };
+    return { append, prepend, size, head, tail, at, pop, contains, find, toString, insertAt, removeAt, containsKey, findKeyIndex, headPointer };
 }
 
 export default LinkedList;
